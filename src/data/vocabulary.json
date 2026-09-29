@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "word": "lá",
+    "initial": "l",
+    "rhyme": "a",
+    "tone": "sắc",
+    "category": "nature",
+    "difficulty": 1,
+    "confusions": ["n"]
+  },
+  {
+    "id": "2",
+    "word": "bút",
+    "initial": "b",
+    "rhyme": "ut",
+    "tone": "sắc",
+    "category": "school",
+    "difficulty": 1,
+    "confusions": ["uc", "up"]
+  },
+  {
+    "id": "3",
+    "word": "mèo",
+    "initial": "m",
+    "rhyme": "eo",
+    "tone": "huyền",
+    "category": "animal",
+    "difficulty": 1,
+    "confusions": ["n"]
+  },
+  {
+    "id": "4",
+    "word": "trường",
+    "initial": "tr",
+    "rhyme": "ương",
+    "tone": "huyền",
+    "category": "school",
+    "difficulty": 2,
+    "confusions": ["ch", "ươn"]
+  },
+  {
+    "id": "5",
+    "word": "sách",
+    "initial": "s",
+    "rhyme": "ach",
+    "tone": "sắc",
+    "category": "school",
+    "difficulty": 1,
+    "confusions": ["x", "at"]
+  },
+  {
+    "id": "6",
+    "word": "hoa",
+    "initial": "h",
+    "rhyme": "oa",
+    "tone": "ngang",
+    "category": "nature",
+    "difficulty": 1,
+    "confusions": ["o"]
+  },
+  {
+    "id": "7",
+    "word": "chim",
+    "initial": "ch",
+    "rhyme": "im",
+    "tone": "ngang",
+    "category": "animal",
+    "difficulty": 2,
+    "confusions": ["tr", "in"]
+  }
+]
