@@ -1,31 +1,41 @@
 // src/components/OptionBoard.tsx
 import React from 'react';
 
-// Định nghĩa kiểu dữ liệu cho một nhóm lựa chọn (ví dụ: nhóm phụ âm đầu)
+export type PartType = 'initial' | 'rhyme' | 'tone';
+
 interface OptionGroupProps {
-  title: string;       // Tiêu đề của nhóm (VD: "Phụ âm đầu")
-  options: string[];   // Danh sách các lựa chọn hiển thị (VD: ["b", "l", "m"])
-  selected: string;    // Giá trị đang được người dùng chọn
-  onSelect: (value: string) => void; // Hàm xử lý khi người dùng click vào một nút
+  title: string;
+  partType: PartType;
+  options: string[];
+  selected: string;
+  onSelect: (value: string) => void;
 }
 
-// Khối chức năng vẽ ra một nhóm lựa chọn
-function OptionGroup({ title, options, selected, onSelect }: OptionGroupProps) {
+function OptionGroup({ title, partType, options, selected, onSelect }: OptionGroupProps) {
+  const handleDragStart = (e: React.DragEvent<HTMLButtonElement>, value: string) => {
+    e.dataTransfer.setData('application/json', JSON.stringify({ partType, value }));
+  };
+
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-4 shadow-sm">
-      <h3 className="text-gray-700 font-semibold mb-4 text-lg">{title}</h3>
-      <div className="flex flex-wrap gap-4">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 md:p-5 mb-3 shadow-sm">
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="text-slate-700 font-bold text-base md:text-lg">{title}</h3>
+        <span className="text-xs text-slate-400">Kéo thả hoặc chạm để chọn</span>
+      </div>
+      <div className="flex flex-wrap gap-3">
         {options.map((option, index) => (
           <button
             key={index}
+            draggable
+            onDragStart={(e) => handleDragStart(e, option)}
             onClick={() => onSelect(option)}
             className={`
-              min-w-[4rem] h-14 rounded-xl text-xl font-bold transition-all duration-200
-              flex items-center justify-center px-4
+              min-w-[4.2rem] h-12 md:h-14 rounded-xl text-lg md:text-xl font-extrabold transition-all duration-150
+              flex items-center justify-center px-4 cursor-grab active:cursor-grabbing select-none
               ${
                 selected === option
-                  ? 'bg-blue-600 text-white shadow-md scale-105' // Trạng thái khi được chọn
-                  : 'bg-slate-50 text-slate-700 border border-slate-200 hover:bg-slate-100' // Trạng thái bình thường
+                  ? 'bg-blue-600 text-white shadow-md scale-105 ring-2 ring-blue-300'
+                  : 'bg-slate-50 text-slate-700 border-2 border-slate-200 hover:bg-blue-50 hover:border-blue-300'
               }
             `}
           >
@@ -37,7 +47,6 @@ function OptionGroup({ title, options, selected, onSelect }: OptionGroupProps) {
   );
 }
 
-// Khối chức năng chính chứa cả 3 nhóm: Phụ âm đầu, Vần, Dấu thanh
 interface OptionBoardProps {
   initialOptions: string[];
   rhymeOptions: string[];
@@ -63,23 +72,26 @@ export default function OptionBoard({
 }: OptionBoardProps) {
   return (
     <div className="w-full">
-      <OptionGroup 
-        title="Phụ âm đầu" 
-        options={initialOptions} 
-        selected={selectedInitial} 
-        onSelect={onInitialSelect} 
+      <OptionGroup
+        title="1. Phụ âm đầu"
+        partType="initial"
+        options={initialOptions}
+        selected={selectedInitial}
+        onSelect={onInitialSelect}
       />
-      <OptionGroup 
-        title="Vần" 
-        options={rhymeOptions} 
-        selected={selectedRhyme} 
-        onSelect={onRhymeSelect} 
+      <OptionGroup
+        title="2. Vần"
+        partType="rhyme"
+        options={rhymeOptions}
+        selected={selectedRhyme}
+        onSelect={onRhymeSelect}
       />
-      <OptionGroup 
-        title="Dấu thanh" 
-        options={toneOptions} 
-        selected={selectedTone} 
-        onSelect={onToneSelect} 
+      <OptionGroup
+        title="3. Dấu thanh"
+        partType="tone"
+        options={toneOptions}
+        selected={selectedTone}
+        onSelect={onToneSelect}
       />
     </div>
   );

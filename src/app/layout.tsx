@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+/*import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -24,6 +24,34 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}*/
+// src/app/layout.tsx
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin", "vietnamese"] });
+
+// 1. Chỉnh sửa Tiêu đề và Biểu tượng trên thanh tab trình duyệt tại đây:
+export const metadata: Metadata = {
+  title: "Luyện ghép tiếng Việt Lớp 1 - Web học chính tả",
+  description: "Ứng dụng hỗ trợ học sinh lớp 1 luyện đọc và học chính tả thông qua ghép phụ âm đầu, vần và dấu thanh.",
+  icons: {
+    icon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📘</text></svg>",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    // 2. Đổi lang="en" thành lang="vi" để trình duyệt không tự động dịch sai từ tiếng Việt
+    <html lang="vi">
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
